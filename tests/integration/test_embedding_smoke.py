@@ -1,5 +1,5 @@
 """Smoke tests against the real Ollama daemon. Requires OLLAMA_HOST reachable
-and the embedding model pulled - run on atadev, not locally.
+and the embedding model pulled - run on coyote1, not locally.
 """
 
 from __future__ import annotations

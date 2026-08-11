@@ -9,7 +9,7 @@ top-8 cutoff, despite an FTS rank of 16.
 
 A cross-encoder reranker (e.g. bge-reranker-v2-m3) is the standard fix, but
 it needs sentence-transformers/torch, which risks the tight `/home/paolo`
-disk quota on atadev (see PLAN.md). This reuses the local Ollama chat model
+disk quota on coyote1 (see PLAN.md). This reuses the local Ollama chat model
 already running for generation instead: given the question and a batch of
 candidate chunks, ask it to return the most relevant ones in order. No new
 dependency, no new disk footprint.

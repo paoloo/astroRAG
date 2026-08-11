@@ -3,7 +3,7 @@
 Unit tests (tests/unit/) touch no network and no live services. Integration
 tests (tests/integration/) hit the real Ollama daemon and the populated
 LanceDB table, so they only make sense run against a deployed environment
-(atadev) - `skip_if_no_ollama` lets the suite degrade gracefully to skips
+(coyote1) - `skip_if_no_ollama` lets the suite degrade gracefully to skips
 rather than hard failures when run somewhere without those services.
 """
 
@@ -28,7 +28,7 @@ def ollama_available() -> bool:
 @pytest.fixture
 def skip_if_no_ollama(ollama_available: bool) -> None:
     if not ollama_available:
-        pytest.skip("Ollama daemon not reachable - run this suite on atadev")
+        pytest.skip("Ollama daemon not reachable - run this suite on coyote1")
 
 
 @pytest.fixture(scope="session")
@@ -45,4 +45,4 @@ def lancedb_table_available() -> bool:
 @pytest.fixture
 def skip_if_no_table(lancedb_table_available: bool) -> None:
     if not lancedb_table_available:
-        pytest.skip("LanceDB 'chunks' table not populated - run this suite on atadev")
+        pytest.skip("LanceDB 'chunks' table not populated - run this suite on coyote1")

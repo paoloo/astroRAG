@@ -1,7 +1,7 @@
 ##
 ## vector — arXiv exoplanet/astronomy RAG pipeline
 ##
-## This pipeline runs on atadev (GPU + an already-running shared Ollama
+## This pipeline runs on coyote1 (GPU + an already-running shared Ollama
 ## daemon), not on this laptop. See PLAN.md for why.
 ##
 ## Remote targets (require REMOTE=user@hostname):

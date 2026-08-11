@@ -2,7 +2,7 @@
 
 Date: 2026-08-11
 Full transcripts: `reports/eval-report.md`
-Corpus: 400 arXiv `astro-ph.EP` papers, 20,450 chunks, LanceDB on `atadev`
+Corpus: 400 arXiv `astro-ph.EP` papers, 20,450 chunks, LanceDB on `coyote1`
 Generation model: `qwen2.5:14b-instruct` (Ollama) | Embedding: `nomic-embed-text`
 
 ## Why this report exists
@@ -113,7 +113,7 @@ it to a new reranking step, `query/reranker.py`, which asks the same local
 Ollama model to judge relevance directly against the full candidate list
 before the final top 8 is chosen. This avoids adding a cross-encoder
 dependency (sentence-transformers/torch, the original plan, risky given
-atadev's tight `/home` quota) by reusing the chat model already running
+coyote1's tight `/home` quota) by reusing the chat model already running
 for generation.
 
 Question 1 was fixed on the first try. Question 3 needed a second pass: the
@@ -207,7 +207,7 @@ pins both fixes directly (asserts the TESS and OGLE answer chunks are
 still retrieved), and `tests/integration/test_full_eval_regression.py`
 reruns the full 18-question set and fails if the RAG score drops below
 13/18. 37 tests total (27 fast unit tests, 10 integration tests against
-the live corpus), all currently passing on atadev. Full details in
+the live corpus), all currently passing on coyote1. Full details in
 `HANDOFF.md`.
 
 One of those tests caught a real bug on its first run: fixing a routine
@@ -221,7 +221,7 @@ anywhere near production, which is the entire point of having the suite.
 - 400/400 papers fetched, parsed, extracted, chunked, embedded, stored, and
   indexed (see `PLAN.md` for the full pipeline breakdown)
 - 20,450 chunks in the LanceDB `chunks` table, hybrid (dense + BM25) search
-- Corpus and vector DB live on `atadev` at
+- Corpus and vector DB live on `coyote1` at
   `/mnt/raid1/paolo_tests/vector-rag/data` (moved off the tight
   `/home/paolo` quota partway through this project, see `PLAN.md`)
 - Full question set: `evaluation/qa_set.py`

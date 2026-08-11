@@ -1,6 +1,6 @@
 """Phase 5: embed chunks via Ollama's embeddings API.
 
-Runs against whatever OLLAMA_HOST is configured (on atadev, the box's
+Runs against whatever OLLAMA_HOST is configured (on coyote1, the box's
 already-running shared daemon). Vectors are cached per-paper as .npy so a
 rerun after an interruption skips papers the manifest already marks
 'embedded' instead of recomputing.

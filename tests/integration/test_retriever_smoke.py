@@ -1,4 +1,4 @@
-"""Smoke tests against the real LanceDB table populated on atadev."""
+"""Smoke tests against the real LanceDB table populated on coyote1."""
 
 from __future__ import annotations
 
