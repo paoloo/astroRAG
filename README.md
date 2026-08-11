@@ -1,4 +1,4 @@
-# vector — arXiv Exoplanet/Astronomy RAG Pipeline
+# arXiv Exoplanet/Astronomy RAG Pipeline Experiment
 
 Retrieval-augmented generation over arXiv `astro-ph.EP` papers: fetch papers,
 parse them, extract astronomy entities, chunk, embed, store in LanceDB,
