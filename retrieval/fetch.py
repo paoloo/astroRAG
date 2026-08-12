@@ -96,14 +96,19 @@ def fetch_incremental(since_date: str, max_results: int = 1000) -> dict[str, int
     manifest = Manifest(settings.manifest_path)
     seen = set(manifest.all_fetched_ids())
 
-    for paper in arxiv_client.search_since(since_date, max_results=max_results):
-        if paper.arxiv_id in seen:
-            continue
-        try:
-            _save_paper(paper, manifest)
-            seen.add(paper.arxiv_id)
-        except Exception as exc:  # noqa: BLE001
-            manifest.record_error(paper.arxiv_id, str(exc))
-            logger.warning("failed to fetch %s: %s", paper.arxiv_id, exc)
+    try:
+        for paper in arxiv_client.search_since(since_date, max_results=max_results):
+            if paper.arxiv_id in seen:
+                continue
+            try:
+                _save_paper(paper, manifest)
+                seen.add(paper.arxiv_id)
+                logger.info("fetched %s: %s", paper.arxiv_id, paper.title[:80])
+            except Exception as exc:  # noqa: BLE001
+                manifest.record_error(paper.arxiv_id, str(exc))
+                logger.warning("failed to fetch %s: %s", paper.arxiv_id, exc)
+    except Exception as exc:  # noqa: BLE001 - arXiv's API is intermittently flaky mid-pagination;
+        # keep whatever was fetched before the failure instead of crashing the whole run
+        logger.warning("search_since failed after retries, stopping early: %s", exc)
 
     return manifest.status_summary()
