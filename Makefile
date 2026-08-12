@@ -39,7 +39,7 @@ _check-remote:
 	    exit 1; \
 	}
 
-deploy: _check-remote ## Rsync source to the remote (excludes data/, venv, caches).
+deploy: _check-remote ## Rsync source to the remote (excludes data/, venv, caches, and anything gitignored that only exists remotely).
 	ssh $(REMOTE) "mkdir -p $(REMOTE_DIR)"
 	rsync -az --delete \
 	    --exclude='.git' \
@@ -48,6 +48,8 @@ deploy: _check-remote ## Rsync source to the remote (excludes data/, venv, cache
 	    --exclude='*.pyc' \
 	    --exclude='data' \
 	    --exclude='reports' \
+	    --exclude='.env' \
+	    --exclude='*.log' \
 	    ./ $(REMOTE):$(REMOTE_DIR)/
 
 venv-remote: deploy ## Create the venv and install dependencies on the remote.
